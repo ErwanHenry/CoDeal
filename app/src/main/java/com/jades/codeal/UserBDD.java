@@ -6,6 +6,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.SQLException;
 
+import java.util.ArrayList;
+
 
 public class UserBDD {
 
@@ -84,7 +86,7 @@ public class UserBDD {
 	*/
 	public User getUserWithNom(String nom){
 		//Récupère dans un Cursor les valeur correspondant à un livre contenu dans la BDD (ici on sélectionne le livre grâce à son titre)
-		Cursor c = bdd.query(Constante.TABLE_USER, new String[] {Constante.COL_ID,Constante.COL_NOM, Constante.COL_PRENOM, Constante.COL_N_ADRESSE, Constante.COL_RUE, Constante.COL_CP, Constante.COL_VILLE, Constante.COL_EMAIL, Constante.COL_MDP, Constante.COL_PHOTO}, Constante.COL_NOM + " LIKE \"" + nom +"\"", null, null, null, null);
+		Cursor c = bdd.query(Constante.TABLE_USER, new String[] {Constante.COL_ID,Constante.COL_NOM, Constante.COL_PRENOM}, Constante.COL_NOM + " LIKE \"" + nom +"\"", null, null, null, null);
 		return cursorToUser(c);
 	}
 
@@ -111,17 +113,41 @@ public class UserBDD {
 		user.setId(c.getInt(Constante.NUM_COL_ID));
 		user.setNom(c.getString(Constante.NUM_COL_NOM));
 		user.setPrenom(c.getString(Constante.NUM_COL_PRENOM));
-		user.setNAdd(c.getInt(Constante.NUM_COL_N_ADRESSE));
-        user.setRue(c.getString(Constante.NUM_COL_RUE));
-        user.setCP(c.getInt(Constante.NUM_COL_CP));
-        user.setVille(c.getString(Constante.NUM_COL_VILLE));
-        user.setEmail(c.getString(Constante.NUM_COL_EMAIL));
-        user.setMdp(c.getString(Constante.NUM_COL_MDP));
-        user.setPhoto(c.getString(Constante.NUM_COL_PHOTO));
 		//On ferme le cursor
 		c.close();
 
 		//On retourne le livre
 		return user;
 	}
+
+
+
+    public ArrayList cursorToList(){
+
+
+        Cursor c = bdd.query(Constante.TABLE_USER, new String[] {Constante.COL_ID,Constante.COL_NOM, Constante.COL_PRENOM}, null, null, null, null, null);
+        ArrayList listItem = new ArrayList ();
+
+       //si aucun élément n'a été retourné dans la requête, on renvoie null
+        if (c.getCount() == 0)
+            return null;
+
+        //Sinon on se place sur le premier élément
+        c.moveToFirst();
+
+        while (c.moveToNext()) {
+
+            //On créé un livre
+            User user = new User();
+            //on lui affecte toutes les infos grâce aux infos contenues dans le Cursor
+            user.setId(c.getInt(Constante.NUM_COL_ID));
+            user.setNom(c.getString(Constante.NUM_COL_NOM));
+            user.setPrenom(c.getString(Constante.NUM_COL_PRENOM));
+        }
+        //On ferme le cursor
+        c.close();
+
+        //On retourne le livre
+        return listItem;
+    }
 }

@@ -12,14 +12,7 @@ public class MaBaseUser extends SQLiteOpenHelper {
 	private static final String CREATE_BDD = "CREATE TABLE " + Constante.TABLE_USER + " ("
 			+ Constante.COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
 			+ Constante.COL_NOM + " TEXT , "
-			+ Constante.COL_PRENOM + " TEXT  , "
-			+ Constante.COL_N_ADRESSE + " INTEGER , "
-			+ Constante.COL_RUE + " TEXT , "
-			+ Constante.COL_CP + " INTEGER , "
-            + Constante.COL_VILLE + " TEXT , "
-            + Constante.COL_EMAIL + " TEXT , "
-            + Constante.COL_MDP + " TEXT ,"
-            + Constante.COL_PHOTO + " TEXT )";
+			+ Constante.COL_PRENOM + " TEXT )";
 
     public MaBaseUser(Context context) {
         super(context, Constante.NOM_BDD, null, Constante.VERSION_USER_BDD);

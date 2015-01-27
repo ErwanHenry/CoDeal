@@ -7,5 +7,6 @@
     <string name="last_name">Nom</string>
     <string name="ville">Ville</string>
     <string name="email">Email</string>
+    <string name="button_add">Ajouter</string>
 
 </resources>
