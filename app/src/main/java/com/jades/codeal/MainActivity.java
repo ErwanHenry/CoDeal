@@ -33,8 +33,8 @@ public class MainActivity extends Activity {
 
         Log.d("test", "avant creation user");
         //Création d'un livre
-        User erwan = new User(0, "Henry", "Erwan", 20, "Allée du verger", 91400, "Gometz la ville", "erwanhenry@hotmail.com", "sisi", "erwan.jpg");
-        User anto = new User(1, "Domage", "Antonin", 12, "Allée du grande saulle", 94260, "Fresnes", "antonin.domage@gmail.com", "nono", "anto.jpg");
+        User erwan = new User("Henry", "Erwan");
+        User anto = new User("Domage", "Antonin");
 
         Log.d("test", "avant overture");
         //On ouvre la base de données pour écrire dedans

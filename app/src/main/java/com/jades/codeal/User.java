@@ -30,6 +30,13 @@ public class User {
         this.setPhoto(photo);
 	}
 
+
+    public User(String nom, String prenom){
+
+        this.setNom(nom);
+        this.setPrenom(prenom);
+    }
+
 	public int getId() {
 		return id;
 	}
