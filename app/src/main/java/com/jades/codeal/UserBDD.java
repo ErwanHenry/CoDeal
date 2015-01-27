@@ -20,7 +20,7 @@ public class UserBDD {
 	}
 
 
-	public void open() throws SQLException {
+	public void open() {
 		//on ouvre la BDD en écriture
 		bdd = maBaseUser.getWritableDatabase();
 	}
@@ -84,7 +84,7 @@ public class UserBDD {
 	*/
 	public User getUserWithNom(String nom){
 		//Récupère dans un Cursor les valeur correspondant à un livre contenu dans la BDD (ici on sélectionne le livre grâce à son titre)
-		Cursor c = bdd.query(Constante.TABLE_USER, new String[] {Constante.COL_ID,Constante.COL_NOM, Constante.COL_PRENOM, Constante.COL_N_ADRESSE, Constante.COL_RUE, Constante.COL_CP, Constante.COL_VILLE, Constante.COL_EMAIL, Constante.COL_MDP}, Constante.COL_NOM + " LIKE \"" + nom +"\"", null, null, null, null);
+		Cursor c = bdd.query(Constante.TABLE_USER, new String[] {Constante.COL_ID,Constante.COL_NOM, Constante.COL_PRENOM, Constante.COL_N_ADRESSE, Constante.COL_RUE, Constante.COL_CP, Constante.COL_VILLE, Constante.COL_EMAIL, Constante.COL_MDP, Constante.COL_PHOTO}, Constante.COL_NOM + " LIKE \"" + nom +"\"", null, null, null, null);
 		return cursorToUser(c);
 	}
 
@@ -117,6 +117,7 @@ public class UserBDD {
         user.setVille(c.getString(Constante.NUM_COL_VILLE));
         user.setEmail(c.getString(Constante.NUM_COL_EMAIL));
         user.setMdp(c.getString(Constante.NUM_COL_MDP));
+        user.setPhoto(c.getString(Constante.NUM_COL_PHOTO));
 		//On ferme le cursor
 		c.close();
 
