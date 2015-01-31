@@ -21,7 +21,7 @@ public class MaBaseUser extends SQLiteOpenHelper {
 @Override
 	public void onCreate(SQLiteDatabase db) {
 		//on créé la table à partir de la requête écrite dans la variable CREATE_BDD
-		db.execSQL(CREATE_BDD);
+    db.execSQL(CREATE_BDD);
 	}
 
     @Override

@@ -5,8 +5,7 @@
     <string name="action_settings">Settings</string>
     <string name="first_name">Prenom</string>
     <string name="last_name">Nom</string>
-    <string name="ville">Ville</string>
-    <string name="email">Email</string>
     <string name="button_add">Ajouter</string>
+    <string name="button_remove">Supprimer</string>
 
 </resources>

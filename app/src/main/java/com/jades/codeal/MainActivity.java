@@ -5,73 +5,84 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.util.Log;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class MainActivity extends Activity {
 
 
-    private ListView maListViewPerso;
+    ListView listView;
+    UserBDD userBdd;
+    ListAdapter listAdp;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Log.d("test", "debut");
-
-
-        maListViewPerso = (ListView) findViewById(R.id.list_item);
-
-        ArrayList listArrayToDisplay = new ArrayList();
-        //Création d'une instance de ma classe LivresBDD
-
-        UserBDD userBdd = new UserBDD(this);
-
-        Log.d("test", "avant creation user");
-        //Création d'un livre
-        User erwan = new User("Henry", "Erwan");
-        User anto = new User("Domage", "Antonin");
-
-        Log.d("test", "avant overture");
-        //On ouvre la base de données pour écrire dedans
+        userBdd = new UserBDD(this);
         userBdd.open();
 
-        //On insère le livre que l'on vient de créer
-
-        Log.d("test", "avant insertion");
-        userBdd.insert(erwan);
-        userBdd.insert(anto);
-
-
-        //Pour vérifier que l'on a bien créé notre livre dans la BDD
-        //on extrait le livre de la BDD grâce au titre du livre que l'on a créé précédemment
+        List<User> usersList = createUsersList();
+        for (User user : usersList) {
+            userBdd.insert(user);
+        }
 
 
-        Log.d("test", "avant get");
+        List<User> listArrayToDisplay = new ArrayList<>();
+        listArrayToDisplay = userBdd.getAllUsers();
+        printList(listArrayToDisplay);
 
-        User userAnto = userBdd.getUserWithNom(anto.getNom());
-        Log.d("test", "avant cusor to list");
-        listArrayToDisplay = userBdd.cursorToList();
-        Log.d("test", "avant set adapter");
-        Log.d("test", "avant arrayadapter");
+    }
 
 
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
-                this,
-                android.R.layout.activity_list_item,
-                listArrayToDisplay);
-        Log.d("test", "avant set adapter");
 
-        maListViewPerso.setAdapter(arrayAdapter);
+    public List<User> createUsersList(){
+        List<User> usersList = new ArrayList<>();
+        usersList.add(new User("Erwan", "Henry"));
+        usersList.add(new User("Julien", "Foltete"));;
+        return usersList;
+    }
 
-        Log.d("test", "avant fermeture");
-        userBdd.close();
+    public void printUser (User user){
+        
+    }
+
+    public void printList (List<User> userList){
+        listView = (ListView) findViewById(R.id.listView1);
+        listAdp = new ArrayAdapter<>( this, android.R.layout.simple_list_item_1, userList);
+        listView.setAdapter(listAdp);
+    }
 
 
+    public void onClick(View view) {
+        User user = null;
+        switch (view.getId()) {
+            case R.id.button_add:
+                user = new User("Henry", "Erwan");
+                userBdd.insert(user);
+                //listAdp.add(user);
+                break;
+            case R.id.button_remove:
+                if (listAdp.getCount() > 0) {
+                    user = (User) listAdp.getItem(0);
+                    userBdd.removeUserWithID(user.getId());
+                    //listAdp.remove(comment);
+                }
+                break;
+        }
+        List<User> printList = new ArrayList<>();
+        printList = userBdd.getAllUsers();
+
+        printList(printList);
+        //listAdp.notifyDataSetChanged();
     }
 
 
@@ -96,6 +107,30 @@ public class MainActivity extends Activity {
 
         return super.onOptionsItemSelected(item);
     }
+
+
+    @Override
+    protected void onDestroy()
+    {
+        if (userBdd != null)
+        {
+            userBdd.close();
+            Log.d("onDestroy","BDD closed");
+        }
+        super.onDestroy();
+    }
+    @Override
+    protected void onResume() {
+        userBdd.open();
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        userBdd.close();
+        super.onPause();
+    }
+
 
 
 }

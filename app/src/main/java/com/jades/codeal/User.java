@@ -16,31 +16,29 @@ public class User {
 
 	public User(){}
 
-	public User(int id, String nom, String prenom, int nAdd, String rue, int cP, String ville, String email, String mdp, String photo){
+	public User(String nom, String prenom, int nAdd, String rue, int cP, String ville, String email, String mdp, String photo){
 
-		this.setId(id);
-		this.setNom(nom);
-		this.setPrenom(prenom);
-		this.setNAdd(nAdd);
-		this.setRue(rue);
-        this.setCP(cP);
-        this.setVille(ville);
-        this.setEmail(email);
-        this.setMdp(mdp);
-        this.setPhoto(photo);
+		setNom(nom);
+		setPrenom(prenom);
+		setNAdd(nAdd);
+		setRue(rue);
+        setCP(cP);
+        setVille(ville);
+        setEmail(email);
+        setMdp(mdp);
+        setPhoto(photo);
 	}
 
 
     public User(String nom, String prenom){
 
-        this.setNom(nom);
-        this.setPrenom(prenom);
+        this.nom = nom;
+        this.prenom = prenom;
     }
 
 	public int getId() {
 		return id;
 	}
-
 	public void setId(int id) {
 		this.id = id;
 	}
@@ -48,7 +46,6 @@ public class User {
 	public String getNom() {
 		return nom;
 	}
-
 	public void setNom(String nom) {
 		this.nom = nom;
 	}
@@ -56,7 +53,6 @@ public class User {
 	public String getPrenom() {
 		return prenom;
 	}
-
 	public void setPrenom(String prenom) {
 		this.prenom = prenom;
 	}
@@ -64,7 +60,6 @@ public class User {
 	public int getNAdd() {
 		return nAdd;
 	}
-
 	public void setNAdd(int nAdd) {
 		this.nAdd = nAdd;
 	}
@@ -72,7 +67,6 @@ public class User {
 	public String getRue() {
 		return rue;
 	}
-
 	public void setRue(String rue) {
 		this.rue = rue;
 	}
@@ -80,7 +74,6 @@ public class User {
     public int getCP() {
         return cP;
     }
-
     public void setCP(int cP) {
         this.cP = cP;
     }
@@ -88,7 +81,6 @@ public class User {
     public String getVille() {
         return ville;
     }
-
     public void setVille(String ville) {
         this.ville = ville;
     }
@@ -96,7 +88,6 @@ public class User {
     public String getEmail() {
         return email;
     }
-
     public void setEmail(String email) {
         this.email = email;
     }
@@ -104,7 +95,6 @@ public class User {
     public String getMdp() {
         return mdp;
     }
-
     public void setMdp(String mdp) {
         this.mdp = mdp;
     }
@@ -112,7 +102,6 @@ public class User {
     public String getPhoto() {
         return photo;
     }
-
     public void setPhoto(String photo) {
         this.photo = photo;
     }
